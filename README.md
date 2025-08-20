@@ -101,6 +101,16 @@ No arquivo **INSTRUCTIONS.md**, incluir:
 - Caso o email do login já esteja em uso, **status code 400 BAD REQUEST**
 - Caso o acess token seja inválido, **status code 401 Unauthorized**
 
+### Importante
+- Para gerenciar o segredo do seu JWT, utilize a seguinte variável de ambiente:
+
+```.env
+...
+JWT_SECRET="segredo aqui"
+```
+
+- NUNCA insira seus segredos diretamente no código, pois essa é uma brecha crítica de segurança, além de interferir com o funcionamento dos testes.
+
 ## 💡 Bônus 🌟
 - Implementar **refresh tokens** para prolongar sessões de forma segura.
 - Criar endpoint **`/usuarios/me`** para retornar informações do usuário autenticado.
