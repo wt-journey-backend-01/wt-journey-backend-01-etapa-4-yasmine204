@@ -24,7 +24,7 @@ const getAgenteById = async (req, res, next) => {
             return next(new ApiError('ID inválido.', 404));
         }
         
-        const agente = await repository.findById(Number(id));
+        const agente = await repository.findById(id);
         
         if(!agente) {
             return next(new ApiError('Agente não encontrado.', 404));
@@ -64,6 +64,10 @@ const updateCompletelyAgente = async (req, res, next) => {
     try {
         const { id } = req.params;
 
+        if (!/^\d+$/.test(id)) {
+            return next(new ApiError('ID inválido.', 404));
+        }
+
         const data = agentesSchema.parse(req.body);
         const updated = await repository.update(id, data);
 
@@ -84,6 +88,10 @@ const partiallyUpdateAgente = async (req, res, next) => {
     try {
         const { id } = req.params;
 
+        if (!/^\d+$/.test(id)) {
+            return next(new ApiError('ID inválido.', 404));
+        }
+
         const partiallyData = agentesSchema.partial().parse(req.body);
         const updated = await repository.update(id, partiallyData);
 
@@ -103,6 +111,10 @@ const partiallyUpdateAgente = async (req, res, next) => {
 const deleteAgente = async (req, res, next) => {
     try {
             const { id } = req.params;
+
+            if (!/^\d+$/.test(id)) {
+                return next(new ApiError('ID inválido.', 404));
+            }
     
             const deleted = await repository.remove(id);
     

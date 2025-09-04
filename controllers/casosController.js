@@ -20,6 +20,10 @@ const getCasos = async (req, res, next) => {
 const getCasoById = async (req, res, next) => {
     try {
         const { id } = req.params;
+        
+        if (!/^\d+$/.test(id)) {
+            return next(new ApiError('ID inválido.', 404));
+        }
 
         const caso = await casosRepository.findById(id);
         
@@ -67,6 +71,10 @@ const updateCompletelyCaso = async (req, res, next) => {
     try {
         const { id } = req.params;
 
+        if (!/^\d+$/.test(id)) {
+            return next(new ApiError('ID inválido.', 404));
+        }
+
         const data = casosSchema.parse(req.body);
         const agenteExists = await agentesRepository.findById(data.agente_id);
         
@@ -92,6 +100,10 @@ const updateCompletelyCaso = async (req, res, next) => {
 const partiallyUpdateCaso = async (req, res, next) => {
     try {
         const { id } = req.params;
+
+        if (!/^\d+$/.test(id)) {
+            return next(new ApiError('ID inválido.', 404));
+        }
 
         const partiallyData = casosSchema.partial().parse(req.body);
 
@@ -121,6 +133,10 @@ const partiallyUpdateCaso = async (req, res, next) => {
 const deleteCaso = async (req, res, next) => {
     try {
         const { id } = req.params;
+
+        if (!/^\d+$/.test(id)) {
+            return next(new ApiError('ID inválido.', 404));
+        }
 
         const deleted = await casosRepository.remove(id);
 
