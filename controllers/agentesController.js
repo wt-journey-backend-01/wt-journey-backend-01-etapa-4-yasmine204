@@ -24,7 +24,7 @@ const getAgenteById = async (req, res, next) => {
             return next(new ApiError('ID inválido.', 404));
         }
         
-        const agente = await repository.findById(id);
+        const agente = await repository.findById(Number(id));
         
         if(!agente) {
             return next(new ApiError('Agente não encontrado.', 404));
