@@ -63,9 +63,11 @@ const registro = async (req, res, next) => {
             senha: hashSenha
         });
 
+        const { senha, ...usuarioSemSenha } = newUsuario;
+
         res.status(201).json({
             message: 'Usuário criado com sucesso!',
-            usuario: newUsuario
+            usuario: usuarioSemSenha
         });
     } 
     catch (error) {
