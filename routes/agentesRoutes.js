@@ -47,7 +47,7 @@ router.get('/', authMiddleware, controller.getAgentes);
  *       201:
  *         description: Agente criado com sucesso
  */
-router.post('/', controller.createAgente);
+router.post('/', authMiddleware, controller.createAgente);
 
 /**
  * @swagger
@@ -65,7 +65,7 @@ router.post('/', controller.createAgente);
  *       200:
  *         description: Agente encontrado com sucesso
  */
-router.get('/:id', controller.getAgenteById);
+router.get('/:id', authMiddleware, controller.getAgenteById);
 
 /**
  * @swagger
@@ -98,7 +98,7 @@ router.get('/:id', controller.getAgenteById);
  *       200:
  *         description: Agente atualizado com sucesso
  */
-router.put('/:id', controller.updateCompletelyAgente);
+router.put('/:id', authMiddleware, controller.updateCompletelyAgente);
 
 /**
  * @swagger
@@ -130,7 +130,7 @@ router.put('/:id', controller.updateCompletelyAgente);
  *       200:
  *         description: Agente atualizado parcialmente com sucesso
  */
-router.patch('/:id', controller.partiallyUpdateAgente);
+router.patch('/:id', authMiddleware, controller.partiallyUpdateAgente);
 
 /**
  * @swagger
@@ -148,6 +148,6 @@ router.patch('/:id', controller.partiallyUpdateAgente);
  *       204:
  *         description: Agente deletado com sucesso
  */
-router.delete('/:id', controller.deleteAgente);
+router.delete('/:id', authMiddleware, controller.deleteAgente);
 
 module.exports = router;

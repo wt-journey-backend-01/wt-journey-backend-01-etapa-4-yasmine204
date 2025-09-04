@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const controller = require('../controllers/casosController');
+const authMiddleware = require('../middlewares/authMiddleware');
 
 /**
  * @swagger
@@ -19,7 +20,7 @@ const controller = require('../controllers/casosController');
  *          200:
  *              description: Lista de casos 
  */
-router.get('/', controller.getCasos);
+router.get('/', authMiddleware, controller.getCasos);
 
 /**
  * @swagger
@@ -48,7 +49,7 @@ router.get('/', controller.getCasos);
  *          201:
  *              description: Caso criado com sucesso 
  */
-router.post('/', controller.createCaso);
+router.post('/', authMiddleware, controller.createCaso);
 
 /**
  * @swagger
@@ -66,7 +67,7 @@ router.post('/', controller.createCaso);
  *          200:
  *              description: Lista de casos que contêm o termo no título ou descrição
  */
-router.get('/search', controller.searchCasos);
+router.get('/search', authMiddleware, controller.searchCasos);
 
 /**
  * @swagger
@@ -84,7 +85,7 @@ router.get('/search', controller.searchCasos);
  *          200:
  *              description: Agente encontrado com sucesso
  */
-router.get('/:caso_id/agente', controller.getAgenteByCasoId);
+router.get('/:caso_id/agente', authMiddleware, controller.getAgenteByCasoId);
 
 /**
  * @swagger
@@ -102,7 +103,7 @@ router.get('/:caso_id/agente', controller.getAgenteByCasoId);
  *          200:
  *              description: Caso encontrado com sucesso
  */
-router.get('/:id', controller.getCasoById);
+router.get('/:id', authMiddleware, controller.getCasoById);
 
 /**
  * @swagger
@@ -137,7 +138,7 @@ router.get('/:id', controller.getCasoById);
  *          200:
  *              description: Caso atualizado com sucesso 
  */
-router.put('/:id', controller.updateCompletelyCaso);
+router.put('/:id', authMiddleware, controller.updateCompletelyCaso);
 
 /**
  * @swagger
@@ -171,7 +172,7 @@ router.put('/:id', controller.updateCompletelyCaso);
  *          200:
  *              description: Caso atualizado parcialmente com sucesso 
  */
-router.patch('/:id', controller.partiallyUpdateCaso);
+router.patch('/:id', authMiddleware, controller.partiallyUpdateCaso);
 
 /**
  * @swagger
@@ -189,8 +190,6 @@ router.patch('/:id', controller.partiallyUpdateCaso);
  *          204:
  *              description: Caso deletado com sucesso
  */
-router.delete('/:id', controller.deleteCaso);
-
-
+router.delete('/:id', authMiddleware, controller.deleteCaso);
 
 module.exports = router;
