@@ -28,7 +28,7 @@ const login = async (req, res, next) => {
             nome: usuario.nome, 
             email: usuario.email 
         }, 
-        process.env.JWT_SECRET, 
+        process.env.JWT_SECRET || 'secret', 
         { expiresIn: '1d' });
 
         res.status(200).json({

@@ -10,7 +10,7 @@ function authMiddleware(req, res, next) {
             return next(new ApiError('Token não fornecido.', 401));
         }
 
-        jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
+        jwt.verify(token, process.env.JWT_SECRET || 'secret', (err, user) => {
             if(err) {
                 return next(new ApiError('Token inválido ou expirado.', 401));
             }
