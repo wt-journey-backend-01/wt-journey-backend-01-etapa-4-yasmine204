@@ -15,7 +15,7 @@ const login = async (req, res, next) => {
         const usuario = await repository.findByEmail(data.email);
 
         if(!usuario) {
-            return next(new ApiError('Usuário não encontrado.', 404));
+            return next(new ApiError('Email inválido.', 401));
         }
         
         const isValidSenha = await bcrypt.compare(data.senha, usuario.senha);
@@ -24,7 +24,7 @@ const login = async (req, res, next) => {
             return next(new ApiError('Senha inválida.', 401));
         }
 
-        const token = jwt.sign({ 
+        const access_token = jwt.sign({ 
             id: usuario.id, 
             nome: usuario.nome, 
             email: usuario.email 
@@ -33,8 +33,7 @@ const login = async (req, res, next) => {
         { expiresIn: '1d' });
 
         res.status(200).json({
-            message: 'Login efetuado com sucesso!',
-            token
+            access_token
         });
     } 
     catch (error) {
