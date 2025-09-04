@@ -4,7 +4,6 @@ const ApiError = require('../utils/ApiError');
 const formatZodError = require('../utils/formatZodError');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-const { email } = require('zod');
 
 const login = async (req, res, next) => {
     try {
@@ -29,7 +28,7 @@ const login = async (req, res, next) => {
             nome: usuario.nome, 
             email: usuario.email 
         }, 
-        process.env.JWT_SECRET, 
+        process.env.JWT_SECRET || 'secret', 
         { expiresIn: '1d' });
 
         res.status(200).json({
@@ -45,7 +44,6 @@ const login = async (req, res, next) => {
 
 const registro = async (req, res, next) => {
     try {
-        console.log(req.body)
         const data = usuariosSchema.parse(req.body);
         
         const usuario = await repository.findByEmail(data.email);
